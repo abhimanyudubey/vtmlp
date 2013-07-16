@@ -1,3 +1,4 @@
+#This is the self generated starcluster configuration, view for instructions on how to add custom configuration settings to ~/.starcluster/config 
 [global]
 DEFAULT_TEMPLATE=default
 [aws info]
