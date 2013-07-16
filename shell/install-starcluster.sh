@@ -51,7 +51,8 @@ if [ -f ~/.ec2/configsc ]; then
 	echo "NODE_INSTANCE_TYPE = t1.micro" >> ~/.starcluster/config
 	#t1.micro instances are in the free tier.
 
-	echo "Default configuration file written, view help in the starcluster tutorial to add/edit custom profiles and settings."
+	echo "Default cluster configuration: 20 t1.micro instances, with ami-899d49e0"
+	echo "Configuration file written, view help in the starcluster tutorial to add/edit custom profiles and settings."
 	#This completes the very basic configuration of MIT StarCluster.
 	echo "#ClusterAddLocation" >> ~/.starcluster/config
 else
