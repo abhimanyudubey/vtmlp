@@ -1,9 +1,11 @@
 #!/bin/bash
-#Install script for the StarCluster Management System.
-#Install Java
+#Install script for the Amazon EC2 AMI and API Tools. 
+#Written by Abhimanyu Dubey for Dr. Dhruv Batra's MLP Laboratory, Virginia Polytechnic Institute and State University, 2013.
 echo $1 $2 $3 $4 $5 $6 $7 $8 $9 ${10}
 CDIR=$(pwd)
 echo "Current Working Directory $CDIR"
+
+#Install Java if not present.
 if [ ! type java ]; then
 if type yum
 	then
@@ -16,7 +18,6 @@ else
 fi
 fi
 
-cd $CDIR
 #Install EC2 API and AMI Tools
 rm -f -r ~/.scm
 mkdir -p ~/.scm/ec2/tools
@@ -26,17 +27,23 @@ cp -r /tmp/ec2-api-tools-*/* ~/.scm/ec2/tools
 curl -o /tmp/ec2-ami-tools.zip http://s3.amazonaws.com/ec2-downloads/ec2-ami-tools.zip
 unzip /tmp/ec2-ami-tools.zip -d /tmp
 cp -rf /tmp/ec2-ami-tools-*/* ~/.scm/ec2/tools
-echo export EC2_BASE=~/.scm/ec2 >> ~/.bashrc
-echo export EC2_HOME=~/.scm/ec2/tools >> ~/.bashrc
-echo export EC2_PRIVATE_KEY=~/.scm/ec2/certificates/ec2-pk.pem >> ~/.bashrc
-echo export EC2_CERT=~/.scm/ec2/certificates/ec2-cert.pem >> ~/.bashrc
-echo export EC2_URL=https://ec2.amazonaws.com >> ~/.bashrc
-echo export AWS_ACCOUNT_NUMBER=$3 >> ~/.bashrc
-echo export AWS_ACCESS_KEY_ID=$1 >> ~/.bashrc
-echo export AWS_SECRET_ACCESS_KEY=$2 >> ~/.bashrc
-echo export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:~/.scm/ec2/tools/bin >> ~/.bashrc
-echo export JAVA_HOME=/usr >> ~/.bashrc
+
+#Setting up local paths in bash configuration and in a config file that will be used by StarCluster Config Generation.
+echo "export EC2_BASE=~/.scm/ec2" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export EC2_HOME=~/.scm/ec2/tools" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export EC2_PRIVATE_KEY=~/.scm/ec2/certificates/ec2-pk.pem" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export EC2_CERT=~/.scm/ec2/certificates/ec2-cert.pem" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export EC2_URL=https://ec2.amazonaws.com" >> | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export AWS_ACCOUNT_NUMBER=$3" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export AWS_ACCESS_KEY_ID=$1" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export AWS_SECRET_ACCESS_KEY=$2" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:~/.scm/ec2/tools/bin" | tee ~/.ec2/configsc >> ~/.bashrc
+echo "export JAVA_HOME=/usr" | tee ~/.ec2/configsc >> ~/.bashrc
+
+#Source the bashrc(linux), replace all instances of it with ~/.bash_profile if required.
 . ~/.bashrc
+
+#Copy Certs
 if [ -f $4 ]
 	then
 	mkdir -p ~/.scm/ec2/certificates
