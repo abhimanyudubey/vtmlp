@@ -43,9 +43,6 @@ export AWS_SECRET_ACCESS_KEY=$2
 export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:~/.scm/ec2/tools/bin
 export JAVA_HOME=/usr" | tee ~/.scm/ec2/configsc >> ~/.bashrc
 
-#Source the bashrc(linux), replace all instances of it with ~/.bash_profile if required.
-. ~/.bashrc
-
 #Copy Certs
 if [ -f $4 ]
 	then
