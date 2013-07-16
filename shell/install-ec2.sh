@@ -29,16 +29,19 @@ unzip /tmp/ec2-ami-tools.zip -d /tmp
 cp -rf /tmp/ec2-ami-tools-*/* ~/.scm/ec2/tools
 
 #Setting up local paths in bash configuration and in a config file that will be used by StarCluster Config Generation.
-echo "export EC2_BASE=~/.scm/ec2" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export EC2_HOME=~/.scm/ec2/tools" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export EC2_PRIVATE_KEY=~/.scm/ec2/certificates/ec2-pk.pem" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export EC2_CERT=~/.scm/ec2/certificates/ec2-cert.pem" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export EC2_URL=https://ec2.amazonaws.com" >> | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export AWS_ACCOUNT_NUMBER=$3" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export AWS_ACCESS_KEY_ID=$1" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export AWS_SECRET_ACCESS_KEY=$2" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:~/.scm/ec2/tools/bin" | tee ~/.ec2/configsc >> ~/.bashrc
-echo "export JAVA_HOME=/usr" | tee ~/.ec2/configsc >> ~/.bashrc
+touch ~/.scm/ec2/configsc
+echo "#!/bin/bash" >> ~/.scm/ec2/configsc
+echo "#Configuration Variables
+export EC2_BASE=~/.scm/ec2
+export EC2_HOME=~/.scm/ec2/tools
+export EC2_PRIVATE_KEY=~/.scm/ec2/certificates/ec2-pk.pem
+export EC2_CERT=~/.scm/ec2/certificates/ec2-cert.pem
+export EC2_URL=https://ec2.amazonaws.com
+export AWS_ACCOUNT_NUMBER=$3
+export AWS_ACCESS_KEY_ID=$1
+export AWS_SECRET_ACCESS_KEY=$2
+export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:~/.scm/ec2/tools/bin
+export JAVA_HOME=/usr" | tee ~/.scm/ec2/configsc >> ~/.bashrc
 
 #Source the bashrc(linux), replace all instances of it with ~/.bash_profile if required.
 . ~/.bashrc

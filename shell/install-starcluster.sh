@@ -3,16 +3,17 @@
 #Written by Abhimanyu Dubey for Dr. Dhruv Batra's MLP Laboratory, Virginia Polytechnic Institute and State University, 2013.
 
 #Remove earlier configurations if present
-if [ -f ~/.starcluster ]; then
+if [ -f ~/.starcluster/config ]; then
 	rm -fr ~/.starcluster 
 fi
 
+mkdir ~/.starcluster
 #Check if Amazon EC2 is installed or not.(install-ec2.sh creates a configsc file containing configurations)
-if [ -f ~/.ec2/configsc ]; then
+if [ -f ~/.scm/ec2/configsc ]; then
 
 	#Source configuration.
 	echo "EC2 Configuration for StarCluster detected, proceeding with installation."
-	source ~/.ec2/configsc
+	source ~/.scm/ec2/configsc
 
 	#Downloading stable release 0.93.3
 	curl -O https://pypi.python.org/packages/source/S/StarCluster/StarCluster-0.93.3.tar.gz
