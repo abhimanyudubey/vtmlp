@@ -53,6 +53,7 @@ if [ -f ~/.ec2/configsc ]; then
 
 	echo "Default configuration file written, view help in the starcluster tutorial to add/edit custom profiles and settings."
 	#This completes the very basic configuration of MIT StarCluster.
+	echo "#ClusterAddLocation" >> ~/.starcluster/config
 else
 	echo "Amazon API/AMI Tools installation incomplete, run install-ec2.sh again and retry."
 	#Failed API/AMI Tools installation.
