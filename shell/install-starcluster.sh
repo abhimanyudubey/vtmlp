@@ -33,7 +33,7 @@ if [ -f ~/.scm/ec2/configsc ]; then
 	echo "[aws info]" >> ~/.starcluster/config
 	echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> ~/.starcluster/config
 	echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> ~/.starcluster/config
-	echo "AWS_USER_ID=$AWS_USER_ID" >> ~/.starcluster/config
+	echo "AWS_USER_ID=$AWS_ACCOUNT_NUMBER" >> ~/.starcluster/config
 	echo "[key defaultkey]" >> ~/.starcluster/config
 	echo "KEY_LOCATION=$EC2_PRIVATE_KEY" >> ~/.starcluster/config
 	echo "#KeyAddLocation" >> ~/.starcluster/config
@@ -47,7 +47,7 @@ if [ -f ~/.scm/ec2/configsc ]; then
 	#User 'sgeadmin' is required because ec2 AMIs connect using that username.
 
 	echo "NODE_IMAGE_ID = ami-c10276a8" >> ~/.starcluster/config
-	#This AMI is Ubuntu 12.04 64-bit with StarCluster support and Graphlab integration.
+	#This AMI is Ubuntu 12.04 64-bit with StarCluster support and Graphlab integration.(for VT-MLP)
 
 	echo "NODE_INSTANCE_TYPE = t1.micro" >> ~/.starcluster/config
 	#t1.micro instances are in the free tier.
