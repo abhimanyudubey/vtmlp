@@ -46,13 +46,13 @@ if [ -f ~/.scm/ec2/configsc ]; then
 	echo "CLUSTER_USER = sgeadmin" >> ~/.starcluster/config
 	#User 'sgeadmin' is required because ec2 AMIs connect using that username.
 
-	echo "NODE_IMAGE_ID = ami-899d49e0" >> ~/.starcluster/config
+	echo "NODE_IMAGE_ID = ami-c10276a8" >> ~/.starcluster/config
 	#This AMI is Ubuntu 12.04 64-bit with StarCluster support and Graphlab integration.
 
 	echo "NODE_INSTANCE_TYPE = t1.micro" >> ~/.starcluster/config
 	#t1.micro instances are in the free tier.
 
-	echo "Default cluster configuration: 20 t1.micro instances, with ami-899d49e0"
+	echo "Default cluster configuration: 20 t1.micro instances, with ami-c10276a8"
 	echo "Configuration file written, view help in the starcluster tutorial to add/edit custom profiles and settings."
 	#This completes the very basic configuration of MIT StarCluster.
 	echo "#ClusterAddLocation" >> ~/.starcluster/config
