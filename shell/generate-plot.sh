@@ -1,9 +1,9 @@
 #!/bin/bash
-#Script to generate timing plots for applications with increasing parallelization.
+#Script to generate timing plots for GraphLab built applications with increasing parallelization.
 #Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
 #Virginia Polytechnic Institute and State University, 2013.
 #Parameters: $1 = mode name. $2 = name of executable. $3 = executable options (variables, etc.) $4 = initial #cores $5 = final #cores, #6 = step increment in #cores.
-echo "Plotting execution graph of $2 with increasing Amazon EC2 machines..."
+
 CDIR=$(pwd)
 
 #Obtain Options
@@ -14,13 +14,21 @@ COUNT=$4
 
 if [ $1 = 'help' ]; then
 	echo "Script to generate timing plot of execution of application with increasing number of cores.
-	Sample input:
-	./generate-plot.sh <mode of execution> <path/to/executable> <options and variables> <initial #cores> <final #cores> <step increment>
-	Mode of execution: parallel, distribute, sgerun
-	Options and variables should be entered within double quotes.
-	Example:
-	./generate-plot.sh parallel dd \"--graph abcd.uai --maxiter 500\" 2 60 4"
+Sample input:
+./generate-plot.sh <mode of execution> <path/to/executable> <options and variables> <initial #cores> <final #cores> <step increment>
+Mode of execution:
+
+	parallel: 	Increases number of threads one by one by adjusting the --ncpus factor
+	distribute:	Uses mpiexec to run and adjusts n keeping --ncpus constant and #threads per core/machine as 1.
+	sgerun:		Uses Sun Grid Engine to distribute, to be run on a cluster with SGE installed.
+
+Options and variables should be entered within double quotes.
+Example:
+
+./generate-plot.sh parallel dd \"--graph abcd.uai --maxiter 500\" 2 60 4"
+
 else
+echo "Plotting execution graph of $2 with increasing Amazon EC2 machines..."
 #Output file for logs.
 OUTFILE=$(date +%Y%m%d-%H%M%S)-$2-$1-$4-$5.log
 mkdir $OUTFILE-log
