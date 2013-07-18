@@ -8,10 +8,6 @@ function generate_plot_script(filename)
 	limit=2*data(nrows,1)-data(nrows-1,1);
 	data_comp = zeros(nrows,limit);
 	compfile = strcat(filename,'.data.log.txt');
-	fstr='';
-	for i=1:limit,
-		fstr=strcat(fstr,'%f');
-	end
 	data_comp = load(compfile);
 	%Loaded files from input.
 	f = figure;
