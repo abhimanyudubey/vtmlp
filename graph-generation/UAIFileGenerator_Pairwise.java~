@@ -1,4 +1,4 @@
-/* Java script to generate UAI Files with only 2-Degree and 1-Degree cliques to be used for distributed dual decomposition.
+/* Java script to generate UAI Files with unary and pairwise factors to be used for distributed dual decomposition.
  * Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
  * Virginia Polytechnic Institute and State University, 2013. */
 import java.io.*;
@@ -7,10 +7,10 @@ public class UAIFileGenerator_TwoDegree {
 		PrintWriter out = new PrintWriter(args[0]);
 		//Destination for output file.
 		out.println("MARKOV");
-		int nVars = 1500;
+		int nVars = 7000000;
 		//number of variables in UAI.<Edit>
 		out.println(nVars);
-		int cardLimit = 8;
+		int cardLimit = 11;
 		//maximum cardinality for any variable present.
 		int cards[] = new int[nVars];
 		for(int i=0;i<nVars;i++){
