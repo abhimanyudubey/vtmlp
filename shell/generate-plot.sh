@@ -2,7 +2,7 @@
 #Script to generate timing plots for applications with increasing parallelization.
 #Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
 #Virginia Polytechnic Institute and State University, 2013.
-
+#Parameters: $1 = mode name. $2 = name of executable. $3 = executable options (variables, etc.) $4 = initial #cores $5 = final #cores, #6 = step increment in #cores.
 echo "Plotting execution graph of $2 with increasing Amazon EC2 machines..."
 CDIR=$(pwd)
 
@@ -12,6 +12,15 @@ OPTS=$3
 #Obtain Inital Count
 COUNT=$4
 
+if [ $1 = 'help' ]; then
+	echo "Script to generate timing plot of execution of application with increasing number of cores.
+	Sample input:
+	./generate-plot.sh <mode of execution> <path/to/executable> <options and variables> <initial #cores> <final #cores> <step increment>
+	Mode of execution: parallel, distribute, sgerun
+	Options and variables should be entered within double quotes.
+	Example:
+	./generate-plot.sh parallel dd \"--graph abcd.uai --maxiter 500\" 2 60 4"
+else
 #Output file for logs.
 OUTFILE=$(date +%Y%m%d-%H%M%S)-$2-$1-$4-$5.log
 mkdir $OUTFILE-log
@@ -84,4 +93,5 @@ if hash matlab 2>/dev/null; then
 	rm -f $TEMP_IMG.txt.data.log.txt
 else
 	echo "No MATLAB detected; cannot generate plot. Check log for execution values."
+fi
 fi
