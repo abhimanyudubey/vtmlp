@@ -3,12 +3,13 @@
  * Virginia Polytechnic Institute and State University, 2013. */
 import java.io.*;
 import java.util.ArrayList;
-public class UAIFileGenerator_Pairwise {
+import java.util.Hashtable;
+public class UAIFileGenerator_PairWise {
 	public static void main(String args[])throws IOException{
 		PrintWriter out = new PrintWriter(args[0]);
 		//Destination for output file.
 		out.println("MARKOV");
-		int nVars = 7000000;
+		int nVars = Integer.parseInt(args[1]);
 		//number of variables in UAI.<Edit>
 		out.println(nVars);
 		int cardLimit = 11;
@@ -25,16 +26,17 @@ public class UAIFileGenerator_Pairwise {
 		//added a density factor for varying sparsity in the graph.
 		double density = 0.3;
 		
-		ArrayList<int[]> facs = new ArrayList<int[]>();
-		for(int i=0;i<nVars;i++){
-			for(int j=i+1;j<nVars;j++){
-				if(Math.random()<density){
+		Hashtable<double[],int[]> facs = new Hashtable<double[],int[]>();
+
+		for(int k=0;k<Integer.parseInt(arg[2]);k++){
+			int i=(int)(Math.random()*nVars), j=(int)(Math.random()*nVars);
+			double sum=i+j,product=i*j,t2[] ={sum,product};
+				if(Math.random()<density && !facs.contains(t2) && i!=j ){
 					int[] t = {i,j};
-					facs.add(t);
+					facs.put(t2, t);
 				}
-			}
 		}
-		
+		ArrayList<int[]> facsn = new ArrayList<int[]>(facs.values());
 		long tot = nVars + facs.size();
 		out.println(tot);
 		
@@ -42,8 +44,8 @@ public class UAIFileGenerator_Pairwise {
 			out.println("1 "+i);
 		}
 		
-		for(int i=0;i<facs.size();i++) {
-			int t[] = facs.get(i);
+		for(int i=0;i<facsn.size();i++) {
+			int t[] = facsn.get(i);
 			out.println("2 "+t[0]+" "+t[1]);
 		}
 		//Completed the preamble generation.
@@ -60,8 +62,8 @@ public class UAIFileGenerator_Pairwise {
 			out.println(1-sum+"\n");
 		}
 		
-		for(int kk=0;kk<facs.size();kk++) {
-			int[] mat=facs.get(kk);
+		for(int kk=0;kk<facsn.size();kk++) {
+			int[] mat=facsn.get(kk);
 			int i=mat[0],j=mat[1];
 			int cardprod = cards[i]*cards[j];
 			out.println(cardprod);
