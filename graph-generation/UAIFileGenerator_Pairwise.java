@@ -28,7 +28,7 @@ public class UAIFileGenerator_PairWise {
 		
 		Hashtable<double[],int[]> facs = new Hashtable<double[],int[]>();
 
-		for(int k=0;k<Integer.parseInt(arg[2]);k++){
+		for(int k=0;k<Integer.parseInt(args[2]);k++){
 			int i=(int)(Math.random()*nVars), j=(int)(Math.random()*nVars);
 			double sum=i+j,product=i*j,t2[] ={sum,product};
 				if(Math.random()<density && !facs.contains(t2) && i!=j ){
