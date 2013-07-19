@@ -34,7 +34,7 @@ public class UAIFileGenerator_PairWise {
 				if(Math.random()<density && !facs.contains(t2) && i!=j ){
 					int[] t = {i,j};
 					facs.put(t2, t);
-					System.out.println("added node"+facs.size);
+					System.out.println("added node"+facs.size());
 				}
 		}
 		ArrayList<int[]> facsn = new ArrayList<int[]>(facs.values());
