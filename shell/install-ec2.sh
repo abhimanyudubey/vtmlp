@@ -19,7 +19,9 @@ fi
 fi
 
 #Install EC2 API and AMI Tools
-rm -f -r ~/.scm
+if [ -d ~/.scm ]; then
+	rm -f -r ~/.scm
+fi
 mkdir -p ~/.scm/ec2/tools
 curl -o /tmp/ec2-api-tools.zip http://s3.amazonaws.com/ec2-downloads/ec2-api-tools.zip
 unzip /tmp/ec2-api-tools.zip -d /tmp
