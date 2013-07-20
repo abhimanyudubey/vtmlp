@@ -32,6 +32,8 @@ cp -rf /tmp/ec2-ami-tools-*/* ~/.scm/ec2/tools
 touch ~/.scm/ec2/configsc
 echo "#!/bin/bash" >> ~/.scm/ec2/configsc
 echo "#Configuration Variables
+export EC2_KEYPAIR_NAME = $6
+export EC2_KEYPAIR_LOCATION=~/.scm/ec2/certificates/$6.pem
 export EC2_BASE=~/.scm/ec2
 export EC2_HOME=~/.scm/ec2/tools
 export EC2_PRIVATE_KEY=~/.scm/ec2/certificates/ec2-pk.pem

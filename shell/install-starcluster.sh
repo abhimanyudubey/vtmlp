@@ -34,8 +34,8 @@ if [ -f ~/.scm/ec2/configsc ]; then
 	echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> ~/.starcluster/config
 	echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> ~/.starcluster/config
 	echo "AWS_USER_ID=$AWS_ACCOUNT_NUMBER" >> ~/.starcluster/config
-	echo "[key defaultkey]" >> ~/.starcluster/config
-	echo "KEY_LOCATION=$EC2_PRIVATE_KEY" >> ~/.starcluster/config
+	echo "[key $EC2_KEYPAIR_NAME]" >> ~/.starcluster/config
+	echo "KEY_LOCATION=$EC2_KEYPAIR_LOCATION" >> ~/.starcluster/config
 	echo "#KeyAddLocation" >> ~/.starcluster/config
 
 	#This is the default cluster template.
