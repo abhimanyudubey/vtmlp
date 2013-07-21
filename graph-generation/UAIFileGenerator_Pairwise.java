@@ -4,6 +4,7 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.concurrent.ConcurrentHashMap;
 public class UAIFileGenerator_PairWise {
 	public static void main(String args[])throws IOException{
 		PrintWriter out = new PrintWriter(args[0]);
@@ -24,31 +25,27 @@ public class UAIFileGenerator_PairWise {
 		//This code generates only 1 degree and 2 degree cliques.
 		
 		//added a density factor for varying sparsity in the graph.
-		double density = 0.3;
+		double density = 0.1;
 		
-		Hashtable<double[],int[]> facs = new Hashtable<double[],int[]>();
-
-		for(int k=0;k<Integer.parseInt(args[2]);k++){
-			int i=(int)(Math.random()*nVars), j=(int)(Math.random()*nVars);
-			double sum=i+j,product=i*j,t2[] ={sum,product};
-				if(Math.random()<density && !facs.contains(t2) && i!=j ){
-					int[] t = {i,j};
-					facs.put(t2, t);
-					System.out.println("added node"+facs.size());
-				}
-		}
-		ArrayList<int[]> facsn = new ArrayList<int[]>(facs.values());
-		long tot = nVars + facs.size();
+		ConcurrentHashMap<double[],int[]> facs = new ConcurrentHashMap<double[],int[]>();
+		long tot = nVars + Long.parseLong(args[2]);
 		out.println(tot);
 		
 		for(int i=0;i<nVars;i++){
 			out.println("1 "+i);
 		}
-		
-		for(int i=0;i<facsn.size();i++) {
-			int t[] = facsn.get(i);
-			out.println("2 "+t[0]+" "+t[1]);
+
+		for(int k=0;k<Integer.parseInt(args[2]);k++){
+			int i=(int)(Math.random()*nVars), j=(int)(Math.random()*nVars);
+			double sum=i+j,product=i*j,t2[] ={sum,product};
+				if(!facs.contains(t2) && i!=j ){
+					int[] t = {i,j};
+					out.println("2 "+t[0]+" "+t[1]);
+					facs.put(t2, t);
+					System.out.println("put item "+k);
+				}
 		}
+		ArrayList<int[]> facsn = new ArrayList<int[]>(facs.values());
 		//Completed the preamble generation.
 		
 		out.println();
@@ -77,6 +74,7 @@ public class UAIFileGenerator_PairWise {
 				}
 				out.println(1-sum);
 			}
+			System.out.println("added factor table "+kk);
 			out.println();
 		}
 		out.close();
