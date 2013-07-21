@@ -5,7 +5,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.concurrent.ConcurrentHashMap;
-public class UAIFileGenerator_Pairwise {
+public class UAIFileGenerator {
 	public static void main(String args[])throws IOException{
 		PrintWriter out = new PrintWriter(args[0]);
 		//Destination for output file.
@@ -35,7 +35,7 @@ public class UAIFileGenerator_Pairwise {
 			out.println("1 "+i);
 		}
 
-		for(long k=0;k<Long.parseLong(args[2]);k++){
+		for(int k=0;k<Integer.parseInt(args[2]);k++){
 			int i=(int)(Math.random()*nVars), j=(int)(Math.random()*nVars);
 			double sum=i+j,product=i*j,t2[] ={sum,product};
 				if(!facs.contains(t2) && i!=j ){
