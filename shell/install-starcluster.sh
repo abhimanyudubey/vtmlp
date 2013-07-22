@@ -40,7 +40,7 @@ if [ -f ~/.scm/ec2/configsc ]; then
 
 	#This is the default cluster template.
 	echo "[cluster default]" >> ~/.starcluster/config
-	echo "KEYNAME = defaultkey" >> ~/.starcluster/config
+	echo "KEYNAME=$EC2_KEYPAIR_NAME" >> ~/.starcluster/config
 	echo "CLUSTER_SIZE = 20" >> ~/.starcluster/config
 
 	echo "CLUSTER_USER = sgeadmin" >> ~/.starcluster/config
