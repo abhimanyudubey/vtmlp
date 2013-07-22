@@ -1,4 +1,4 @@
-function model = pascal_train(cls, n, note)
+function model = pascal_train(cls, n, note, varargin)
 % Train a model.
 %   model = pascal_train(cls, n, note)
 %
@@ -21,18 +21,18 @@ if nargin < 3
   note = '';
 end
 
-conf = voc_config();
+nvarargs = length(varargin);
+if nvarargs == 6
+  [annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath] = varargin;
+  conf = voc_config('pascal.VOCopts.annopath',annoPath,'pascal.VOCopts.imgpath',imgPath,'pascal.VOCopts.imgsetpath',imgsetPath,'pascal.VOCopts.clsimgsetpath',clsimgsetPath,'pascal.VOCopts.clsrespath',clsresPath,'pascal.VOCopts.detrespath',detresPath); 
+else 
+  conf = voc_config();
+end
 
 cachedir = conf.paths.model_dir;
 
 % Load the training data
-if isdeployed
-	pos = load('pos.m');
-	neg = load('neg.m');
-	impos = load('impos.m');
-else
-	[pos, neg, impos] = pascal_data(cls, conf.pascal.year);
-end
+[pos, neg, impos] = pascal_data(cls, conf.pascal.year, annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath);
 % Split foreground examples into n groups by aspect ratio
 spos = split(pos, n);
 

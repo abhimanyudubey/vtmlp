@@ -1,4 +1,4 @@
-function [pos, neg, impos] = pascal_data(cls, year)
+function [pos, neg, impos] = pascal_data(cls, year, varargin)
 % Get training data from the PASCAL dataset.
 %   [pos, neg, impos] = pascal_data(cls, year)
 %
@@ -11,7 +11,14 @@ function [pos, neg, impos] = pascal_data(cls, year)
 %   cls     Object class to get examples for
 %   year    PASCAL dataset year
 
-conf       = voc_config('pascal.year', year)
+nvarargs = length(varargin);
+if nvarargs == 6
+  [annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath] = varargin;
+  conf = voc_config('pascal.year',year, 'pascal.VOCopts.annopath',annoPath,'pascal.VOCopts.imgpath',imgPath,'pascal.VOCopts.imgsetpath',imgsetPath,'pascal.VOCopts.clsimgsetpath',clsimgsetPath,'pascal.VOCopts.clsrespath',clsresPath,'pascal.VOCopts.detrespath',detresPath); 
+else 
+  conf = voc_config('pascal.year',year);
+end
+
 dataset_fg = conf.training.train_set_fg
 dataset_bg = conf.training.train_set_bg
 cachedir   = conf.paths.model_dir

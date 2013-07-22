@@ -8,7 +8,7 @@
 % 	n			: The number of aspect ratio clusters to use. (pascal_train)
 %	numworkers	: Number of workers in matlabpool to be created. If 0, no matlabpool is created.
 
-function compile_pascal_train(out_path, cls, n, numworkers)
+function compile_pascal_train(out_path, cls, n, numworkers, varargin)
 	%Preprocessing all variables taken in, all are strings. Adding note 'deployed' for all deployed calls.
 	note='deployed';
 	numworkers = str2num(numworkers);
@@ -31,7 +31,13 @@ function compile_pascal_train(out_path, cls, n, numworkers)
 	end
 
 	tStart = tic;
-	model = pascal_train(cls, n, note);
+	nvarargs = length(varargin);
+	if nvarargs == 6
+		[annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath] = varargin; 
+		model = pascal_train(cls, n, note, annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath);
+	else
+		model = pascal_train(cls, n, note);
+	end
 	% Evaluates model.
 	tStop = toc(tStart);
 	%Save time of entire evaluation.
