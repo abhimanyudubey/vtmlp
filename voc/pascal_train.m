@@ -32,7 +32,11 @@ end
 cachedir = conf.paths.model_dir;
 
 % Load the training data
-[pos, neg, impos] = pascal_data(cls, conf.pascal.year, annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath);
+if nvarargs == 6
+  [pos, neg, impos] = pascal_data(cls, conf.pascal.year, annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath);
+else 
+  [pos, neg, impos] = pascal_data(cls, conf.pascal.year);
+end
 % Split foreground examples into n groups by aspect ratio
 spos = split(pos, n);
 
