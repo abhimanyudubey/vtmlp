@@ -10,3 +10,5 @@ help: Contains all documents that are available as reference as described in the
 pagerank-timer: A timer application written in C++ using GraphLab API to determine performance in a distributed environment.
 
 shell: Set of all shell scripts that will be required for running/installation of modules, etc.
+
+voc: Set of all edited files in vocrelease5 to create executables.
