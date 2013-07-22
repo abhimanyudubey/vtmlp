@@ -1,4 +1,4 @@
-function ds = pascal_test(model, testset, year, suffix)
+function ds = pascal_test(model, testset, year, suffix, varargin)
 % Compute bounding boxes in a test set.
 %   ds = pascal_test(model, testset, year, suffix)
 %
@@ -16,9 +16,15 @@ function ds = pascal_test(model, testset, year, suffix)
 %
 %   We also save the bounding boxes of each filter (include root filters)
 %   and the unclipped detection window in ds
-
-conf = voc_config('pascal.year', year, ...
-                  'eval.test_set', testset);
+nvarargs = length(varargin);
+if nvarargs == 6
+  [annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath] = varargin;
+  conf = voc_config('pascal.VOCopts.annopath',annoPath,'pascal.VOCopts.imgpath',imgPath,'pascal.VOCopts.imgsetpath',imgsetPath,'pascal.VOCopts.clsimgsetpath',clsimgsetPath,'pascal.VOCopts.clsrespath',clsresPath,'pascal.VOCopts.detrespath',detresPath, 'pascal.year', year, ...
+                    'eval.test_set', testset); 
+else 
+  conf = voc_config('pascal.year', year, ...
+                    'eval.test_set', testset);
+end
 VOCopts  = conf.pascal.VOCopts;
 cachedir = conf.paths.model_dir;
 cls = model.class;

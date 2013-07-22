@@ -1,4 +1,4 @@
-function [ap, prec, recall] = pascal_eval(cls, ds, testset, year, suffix)
+function [ap, prec, recall] = pascal_eval(cls, ds, testset, year, suffix, varargin)
 % Score detections using the PASCAL development kit.
 %   [ap, prec, recall] = pascal_eval(cls, ds, testset, suffix)
 %
@@ -15,8 +15,15 @@ function [ap, prec, recall] = pascal_eval(cls, ds, testset, year, suffix)
 %   suffix    Results are saved to a file named:
 %             [cls '_pr_' testset '_' suffix]
 
-conf = voc_config('pascal.year', year, ...
-                  'eval.test_set', testset);
+nvarargs = length(varargin);
+if nvarargs == 6
+  [annoPath, imgPath, imgsetPath, clsimgsetPath, clsresPath, detresPath] = varargin;
+  conf = voc_config('pascal.VOCopts.annopath',annoPath,'pascal.VOCopts.imgpath',imgPath,'pascal.VOCopts.imgsetpath',imgsetPath,'pascal.VOCopts.clsimgsetpath',clsimgsetPath,'pascal.VOCopts.clsrespath',clsresPath,'pascal.VOCopts.detrespath',detresPath, 'pascal.year', year, ...
+                    'eval.test_set', testset); 
+else 
+  conf = voc_config('pascal.year', year, ...
+                    'eval.test_set', testset);
+end
 cachedir = conf.paths.model_dir;                  
 VOCopts  = conf.pascal.VOCopts;
 if isdeployed
