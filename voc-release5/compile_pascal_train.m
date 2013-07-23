@@ -7,7 +7,7 @@
 %	cls			: The class which has to be trained. (pascal_train)
 % 	n			: The number of aspect ratio clusters to use. (pascal_train)
 %	numworkers	: Number of workers in matlabpool to be created. If 0, no matlabpool is created.
-
+startup;
 function compile_pascal_train(out_path, cls, n, numworkers, varargin)
 	%Preprocessing all variables taken in, all are strings. Adding note 'deployed' for all deployed calls.
 	note='deployed';
