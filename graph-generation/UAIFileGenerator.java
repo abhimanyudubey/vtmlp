@@ -5,12 +5,13 @@ import java.io.*;
 public class UAIFileGenerator {
 	public static void main(String args[])throws IOException{
 		PrintWriter out = new PrintWriter(args[0]);
-		PrintWriter outtable = new PrintWriter(args[0].concat("table.uai"));
 		//Destination for output file.
 		out.println("MARKOV");
 		int nVars = Integer.parseInt(args[1]);
 		//number of variables in UAI.<Edit>
 		out.println(nVars);
+		int cardLimit = 11;
+		//maximum cardinality for any variable present.
 		int cards[] = new int[nVars];
 		for(int i=0;i<nVars;i++){
 			cards[i]=10;
@@ -18,45 +19,62 @@ public class UAIFileGenerator {
 		}
 		out.println();
 		
-		long tot = nVars + Long.parseLong(args[2]);
+		long nEdge = Long.parseLong(args[2]);
+		long tot = nVars + ((nVars-100)*10);
 		out.println(tot);
-		
+
+		long actual=0;
 		for(int i=0;i<nVars;i++){
 			out.println("1 "+i);
-			outtable.println(cards[i]);float sum=0;
+			actual++;
+			System.out.println("adding unary preamble "+i);
+		}
+		
+		for(long k=0;k<nVars-100;k++){
+			long index=k+1;
+			for(long l=0;l<10;l++) {
+				long other_vertex = index +(int)((nVars-index)*(Math.random()*0.5));
+				out.println("2 "+k+" "+other_vertex);
+				System.out.println("adding binary preamble "+l+" of "+k);
+				index=other_vertex;
+				actual++;
+			}
+		}
+		System.out.println(actual);
+		
+		out.println();
+		for(int i=0;i<nVars;i++){
+			out.println(cards[i]);
+			float sum=0;
 			for(int j=0;j<cards[i]-1;j++){
 				float tr = (float) (Math.random()*(1-sum));
 				sum+=tr;
-				outtable.print(tr+" ");	
+				out.print(tr+" ");	
 			}
-			outtable.println(1-sum+"\n");
+			out.println(1-sum+"\n");
+			System.out.println("adding unary function table "+i);
+			actual--;
 		}
 		
-		int faclimit = Integer.parseInt(args[2]);
-		for(int k=0;k<faclimit-100;k++){
-			int[] factors = new int[10];
-			int lim=k+1;
-			for(int i=0;i<10;i++) {
-				factors[i]=(int)(Math.random()*(faclimit-lim)*(0.5)+lim);
-				lim=factors[i]+1;
-				out.println("2 "+k+" "+factors[i]);
-				outtable.println("100");
+		for(long kk=0;kk<nVars-100;kk++) {
+			for(int k=0;k<10;k++){
+				out.println(100);
 				for(int ck=0;ck<10;ck++){
 					float sum=0;
-					for(int l=0;l<10;l++){
+					for(int l=0;l<9;l++){
 						float tr = (float) (Math.random()*(1-sum));						
 						sum+=tr;
-						outtable.print(tr+" ");
+						out.print(tr+" ");
 					}
-					outtable.println(1-sum);
+					out.println(1-sum);
 				}
-				System.out.println("added factor table "+i+" for "+k);
-				outtable.println();
+				actual--;
+				out.println();
 			}
+			System.out.println("added factor table "+kk);
 		}
-		
 		out.println();
+		System.out.println(actual);
 		out.close();
-		outtable.close();
 	}
 }
