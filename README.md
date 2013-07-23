@@ -11,4 +11,4 @@ pagerank-timer: A timer application written in C++ using GraphLab API to determi
 
 shell: Set of all shell scripts that will be required for running/installation of modules, etc.
 
-voc: Set of all edited files in vocrelease5 to create executables.
+voc-release5: Set of all edited files in vocrelease5 to create executables.
