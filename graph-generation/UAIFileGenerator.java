@@ -19,8 +19,8 @@ public class UAIFileGenerator {
 		}
 		out.println();
 		
-		long nEdge = Long.parseLong(args[2]);
-		long tot = nVars + ((nVars-100)*10);
+		int nEdge = Integer.parseInt(args[2]);
+		long tot = nVars + ((nVars-100)*nEdge);
 		out.println(tot);
 
 		long actual=0;
@@ -32,7 +32,7 @@ public class UAIFileGenerator {
 		
 		for(long k=0;k<nVars-100;k++){
 			long index=k+1;
-			for(long l=0;l<10;l++) {
+			for(long l=0;l<nEdge;l++) {
 				long other_vertex = index +(int)((nVars-index)*(Math.random()*0.5));
 				out.println("2 "+k+" "+other_vertex);
 				System.out.println("adding binary preamble "+l+" of "+k);
@@ -57,7 +57,7 @@ public class UAIFileGenerator {
 		}
 		
 		for(long kk=0;kk<nVars-100;kk++) {
-			for(int k=0;k<10;k++){
+			for(int k=0;k<nEdge;k++){
 				out.println(100);
 				for(int ck=0;ck<10;ck++){
 					float sum=0;
