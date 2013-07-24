@@ -1,7 +1,6 @@
-% Script to create executable for pascal_train.
+% MATLAB Script to create executable for pascal_train.
 % Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
 % Virginia Polytechnic Institute and State University, 2013.
-
 % Parameters during execution:
 %	out_path	: Path to save output.
 %	cls			: The class which has to be trained. (pascal_train)
