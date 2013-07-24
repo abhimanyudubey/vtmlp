@@ -1,6 +1,8 @@
 vtmlp
 =====
 
+cru: helper codes to convert cru data to an mrf
+
 Code Repo for MLP Lab at Virginia Tech / Summer Internship 2013
 
 graph-generation: Contains helper codes in Java to generate arbitrary graphs.
