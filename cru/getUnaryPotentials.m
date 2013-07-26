@@ -42,10 +42,13 @@ function [potentials,config] = getUnaryPotentials(graph,p)
                     potentials(i,j,k) = normpdf(graph(i,j,k),mean_pred(1),stdev);
                 elseif isnan(x(k)),
                     potentials(i,j,k) = NaN;
+                    % The potentials are found using the method described
+                    % in the paper, via normal probability distribution
+                    % function on the 109 year data.
                 end
-            end
             % Assigned the potential values.
-            config(i,j) = x;
+            config(i,j,k) = x(k);
+            end
         end
     end
     %Configuration complete.
