@@ -4,7 +4,8 @@
 % Virginia Polytechnic Institute and State University, 2013.
 function [potentials,config] = getUnaryPotentials(graph,p)
 % This function takes in the precipitation values of the CRU 1901-2009
-% dataset and returns configs (for k=2, 0 or 1 values) and unary potential
+% dataset and percentile threshold (check abovementioned paper) and 
+% returns configs (for k=2, 0 or 1 values) and unary potential
 % values of the dataset.
     size_graph = size(graph);
     potentials = nan(size_graph);
