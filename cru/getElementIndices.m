@@ -1,3 +1,6 @@
+% MATLAB script for generating grid indices from a linearized 3D grid.
+% Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
+% Virginia Polytechnic Institute and State University, 2013.
 function element = getElementIndices(serial,graph)
     gsize = size(graph);
     sz = mod(serial,(gsize(1)*gsize(2)));
