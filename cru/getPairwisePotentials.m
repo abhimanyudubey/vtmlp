@@ -2,7 +2,7 @@
 % http://www-users.cs.umn.edu/~banerjee/papers/12/drought.pdf 
 % Written by Abhimanyu Dubey for Dr. Dhruv Batra's Machine Learning and Perception Laboratory
 % Virginia Polytechnic Institute and State University, 2013.
-function potentials = getPairwisePotentials(graph,config, c1,c2)
+function potentials = getPairwisePotentials(config, c1,c2)
 % This function accepts the precipitation graphs and the configurations
 % generated from getUnaryPotentials.m and generates the pairwise potential
 % values using the values of c1 and c2 as described in the abovementioned
@@ -13,41 +13,18 @@ function potentials = getPairwisePotentials(graph,config, c1,c2)
     location_pairs = [];
     location_potentials = NaN;
     %The size of the table of configurations.
+    if(length(size_config)==2),
+        size_config = [size_config 1];
+    end
     for k=1:size_config(3),
         for i=1:size_config(1),
             for j=1:size_config(2),
                 if ~isnan(config(i,j,1))
-                    if i ~= 1,
-                        if ~isnan(config(i-1,j,1)),
-                            id_1 = getElementID(config,i,j,k));
-                            id_2 = getElementID(config,i-1,j,k));
-                            if config(i,j,k) == 1 & config(i-1,j,k) == 1,
-                                location_potentials = c1;
-                            else
-                                location_potentials = c2;
-                            end
-                            location_pairs =    [location_pairs
-                                                id_1 id_2 location_potentials];                   
-                        end
-                    end
                     if i ~= size_config(1),
                         if ~isnan(config(i+1,j,1)),
-                            id_1 = getElementID(config,i,j,k));
-                            id_2 = getElementID(config,i+1,j,k));
+                            id_1 = getElementID(config,i,j,k);
+                            id_2 = getElementID(config,i+1,j,k);
                             if config(i,j,k) == 1 & config(i+1,j,k) == 1,
-                                location_potentials = c1;
-                            else
-                                location_potentials = c2;
-                            end
-                            location_pairs =    [location_pairs
-                                                id_1 id_2 location_potentials];                   
-                        end
-                    end
-                    if j ~= 1,
-                        if ~isnan(config(i,j-1,1)),
-                            id_1 = getElementID(config,i,j,k));
-                            id_2 = getElementID(config,i,j-1,k));
-                            if config(i,j,k) == 1 & config(i,j-1,k) == 1,
                                 location_potentials = c1;
                             else
                                 location_potentials = c2;
@@ -58,8 +35,8 @@ function potentials = getPairwisePotentials(graph,config, c1,c2)
                     end
                     if j ~= size_config(2),
                         if ~isnan(config(i,j+1,1)),
-                            id_1 = getElementID(config,i,j,k));
-                            id_2 = getElementID(config,i,j+1,k));
+                            id_1 = getElementID(config,i,j,k);
+                            id_2 = getElementID(config,i+1,j,k);
                             if config(i,j,k) == 1 & config(i,j+1,k) == 1,
                                 location_potentials = c1;
                             else
@@ -73,5 +50,5 @@ function potentials = getPairwisePotentials(graph,config, c1,c2)
             end
         end
     end
-    
+    potentials = location_pairs;
 end
